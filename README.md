@@ -83,7 +83,7 @@ ThingSpeak provides graphs, gauges, and widgets to visualize air quality changes
 The system logic was tested on a physical ESP32 with MQ-135 sensor.  
 Serial monitor output and ThingSpeak dashboard were used to verify data transmission and alert accuracy.
 
-## 🎥 Demo Video / Screenshot
+## 🎥 working
 
 <img width="1600" height="1204" alt="WhatsApp Image 2026-04-15 at 11 37 03 PM" src="https://github.com/user-attachments/assets/cd50ac10-2aaf-42ae-bc14-91ce8a20b425" />
 <img width="888" height="648" alt="WhatsApp Image 2026-04-15 at 11 35 38 PM" src="https://github.com/user-attachments/assets/18684ea1-6e9a-4ea4-9e23-9d9ee70b7a65" />
