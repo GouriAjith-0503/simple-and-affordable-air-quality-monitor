@@ -85,7 +85,10 @@ Serial monitor output and ThingSpeak dashboard were used to verify data transmis
 
 ## 🎥 Demo Video / Screenshot
 
-*Add your ThingSpeak dashboard screenshot or serial monitor output here*
+<img width="1600" height="1204" alt="WhatsApp Image 2026-04-15 at 11 37 03 PM" src="https://github.com/user-attachments/assets/cd50ac10-2aaf-42ae-bc14-91ce8a20b425" />
+<img width="888" height="648" alt="WhatsApp Image 2026-04-15 at 11 35 38 PM" src="https://github.com/user-attachments/assets/18684ea1-6e9a-4ea4-9e23-9d9ee70b7a65" />
+<img width="1600" height="654" alt="WhatsApp Image 2026-04-15 at 11 35 38 PM (1)" src="https://github.com/user-attachments/assets/737e313a-96c7-453b-b61d-9af610d7b2e1" />
+
 
 ## 🚀 Future Enhancements
 
@@ -102,12 +105,8 @@ Serial monitor output and ThingSpeak dashboard were used to verify data transmis
 
 ## 👩‍💻 Author
 
-- **Gouri Ajith** (MGP24EVLSI014)  
-- **Lakshmipriya K G** (MGP24EVLSI017)  
+- **Gouri Ajith** (MGP24EVLSI014)   
 
 **Course:** Semester 3, Electronics Engineering (VLSI Design and Technology)  
 **Institution:** Saintgits College of Engineering
 
-## 📜 License
-
-This project is open-source under the MIT License.
