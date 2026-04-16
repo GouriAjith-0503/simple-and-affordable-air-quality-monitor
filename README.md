@@ -105,7 +105,7 @@ Serial monitor output and ThingSpeak dashboard were used to verify data transmis
 
 ## 👩‍💻 Author
 
-- **Gouri Ajith** (MGP24EVLSI014)   
+- **Lakshmipriya K G** (MGP24EVLSI017)   
 
 **Course:** Semester 3, Electronics Engineering (VLSI Design and Technology)  
 **Institution:** Saintgits College of Engineering
