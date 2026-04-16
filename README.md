@@ -24,23 +24,23 @@ This project presents an intelligent IoT-based Air Quality Monitoring System usi
 
 ## 🏆 Innovation & Advanced Features
 
-### 🌟 Real-Time Cloud Dashboard
+###  Real-Time Cloud Dashboard
 
 Unlike standalone detectors, this system pushes data to the cloud, allowing remote monitoring and data logging without physical presence.
 
-### 📊 Threshold-Based Smart Alerting
+###  Threshold-Based Smart Alerting
 
 The system instantly classifies air as “Good” or “Poor” and can be extended to trigger LEDs, buzzers, or notifications.
 
-### ☁️ IoT-Enabled Data Logging
+###  IoT-Enabled Data Logging
 
 All readings are stored on ThingSpeak, enabling long-term trend analysis, pollution pattern detection, and decision-making for health and safety.
 
-### 🔌 Low-Cost & Scalable
+###  Low-Cost & Scalable
 
 Built with affordable components (ESP32 + MQ-135), the system can be deployed indoors, outdoors, or across multiple locations.
 
-### 📈 Visual Analytics
+###  Visual Analytics
 
 ThingSpeak provides graphs, gauges, and widgets to visualize air quality changes over minutes, hours, or days.
 
