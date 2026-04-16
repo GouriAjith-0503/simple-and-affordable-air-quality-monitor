@@ -1,133 +1,113 @@
-# simple and affordable air quality monitor
-# Air Quality Monitoring System with ESP32 & MQ-135
-
-![ESP32](https://img.shields.io/badge/ESP32-ThingSpeak-blue) ![Air Quality](https://img.shields.io/badge/Air%20Quality-MQ135-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
+# Air Quality Monitoring System  
+**Real-Time Gas Detection & Cloud-Based Air Quality Tracking**
 
 ## 📌 Overview
 
-This project implements a **real-time air quality monitoring system** using an ESP32 DevKit V1 and an MQ-135 gas sensor. It reads the concentration of harmful gases (CO₂, NH₃, benzene, smoke, NOₓ) and sends the raw ADC value to **ThingSpeak** cloud platform. The system also provides a local threshold alert on the Serial Monitor.
+This project presents an intelligent IoT-based Air Quality Monitoring System using an ESP32 and an MQ-135 gas sensor. Unlike basic pollution detectors that only show local readings, this solution continuously uploads data to ThingSpeak cloud, provides threshold-based alerts, and enables remote monitoring of harmful gases such as CO₂, NH₃, benzene, smoke, and NOₓ.
 
-> **Note:** The current version uses raw ADC values (0–4095).
+## 🎯 Objectives
 
----
+- Continuously measure air quality (harmful gas concentration)
+- Upload real-time data to ThingSpeak cloud dashboard
+- Trigger local alerts when air quality degrades
+- Enable low-cost, scalable remote environmental monitoring
+- Provide data logging for long-term pollution trend analysis
 
-## 🎯 Features
+## ⚙️ System Working
 
-- Reads analog signal from MQ-135 sensor on GPIO34.
-- Connects to Wi-Fi and uploads data to ThingSpeak every 15 seconds.
-- Compares sensor value against a threshold (2000) and prints air quality status.
-- Low-cost, easy to replicate.
+- The MQ-135 gas sensor detects gas concentration and outputs an analog voltage.
+- The ESP32 reads this voltage on GPIO34 and converts it to a raw ADC value (0–4095).
+- Every 15 seconds, the ESP32 sends the value to ThingSpeak via Wi-Fi.
+- The system compares the reading against a preset threshold (e.g., 2000).
+- If the threshold is exceeded, a “Poor Air Quality” alert is printed on the serial monitor.
+- Users can view live graphs and historical data on the ThingSpeak dashboard from anywhere.
 
----
+## 🏆 Innovation & Advanced Features
 
-## 🧰 Components Required
+### 🌟 Real-Time Cloud Dashboard
 
-| Component               | Quantity |
-|------------------------|----------|
-| ESP32 DevKit V1        | 1        |
-| MQ-135 Gas Sensor      | 1        |
-| Jumper Wires (F/F or F/M) | As needed |
-| Breadboard             | 1        |
-| USB cable (for power & programming) | 1 |
+Unlike standalone detectors, this system pushes data to the cloud, allowing remote monitoring and data logging without physical presence.
 
----
+### 📊 Threshold-Based Smart Alerting
 
-## 🔌 Wiring Diagram
+The system instantly classifies air as “Good” or “Poor” and can be extended to trigger LEDs, buzzers, or notifications.
 
-| MQ-135 Pin | ESP32 Pin         |
-|------------|-------------------|
-| VCC        | 5V / VIN          |
-| GND        | GND               |
-| AOUT       | GPIO34 (ADC1_CH6) |
+### ☁️ IoT-Enabled Data Logging
 
-> **Note:** The MQ-135 requires a 5V supply. ESP32's VIN pin works when powered via USB.
+All readings are stored on ThingSpeak, enabling long-term trend analysis, pollution pattern detection, and decision-making for health and safety.
 
----
+### 🔌 Low-Cost & Scalable
 
-## 📡 ThingSpeak Setup
+Built with affordable components (ESP32 + MQ-135), the system can be deployed indoors, outdoors, or across multiple locations.
 
-1. Create a free account at [ThingSpeak.com](https://thingspeak.com).
-2. Create a new channel with **Field 1** named `Air Quality (ADC)`.
-3. Note your **Channel ID** and **Write API Key**.
+### 📈 Visual Analytics
 
----
+ThingSpeak provides graphs, gauges, and widgets to visualize air quality changes over minutes, hours, or days.
 
-## 💻 Code (AirQualitySystem.ino)
+## 🧰 Components Used
 
-The complete code is shown below. Replace the Wi-Fi credentials and ThingSpeak keys with your own.
+- ESP32 DevKit V1
+- MQ-135 Gas Sensor
+- Jumper Wires
+- Breadboard
+- 5V USB Power Supply
+- Wi-Fi network
 
-```cpp
-#include <WiFi.h>
-#include <ThingSpeak.h>
+## 💡 Key Features
 
-// --- PIN DEFINITIONS ---
-#define MQ135_PIN 34          // MQ-135 Analog Output
+- Real-time air quality measurement
+- Automatic cloud upload (ThingSpeak)
+- Local threshold-based air quality classification
+- Remote access from any device
+- Data logging and graphing
+- Easy to replicate and scale
 
-// --- THRESHOLD (raw ADC value, 0-4095) ---
-#define SENSOR_THRESHOLD 2000 // Adjust based on your environment
+## 🔌 Wiring & Connections
 
-// --- WiFi Credentials ---
-const char* ssid     = "YOUR_SSID";       // Replace with your Wi-Fi SSID
-const char* password = "YOUR_PASSWORD";   // Replace with your Wi-Fi password
+| MQ-135 Pin | ESP32 Pin |
+|------------|-----------|
+| VCC        | 5V / VIN  |
+| GND        | GND       |
+| AOUT       | GPIO34    |
 
-// --- ThingSpeak Settings ---
-unsigned long channelID = 1234567;        // Your channel ID
-const char* writeAPKey  = "YOUR_API_KEY"; // Your Write API Key
+## 💻 Code Logic (Arduino)
 
-WiFiClient client;
-unsigned long lastThingSpeakUpdate = 0;
+- Initialize Wi-Fi and ThingSpeak
+- Read analog value from GPIO34
+- Compare with threshold and print status
+- Send value to ThingSpeak field every 15 seconds
+- Handle Wi-Fi reconnection automatically
 
-void setup() {
-  Serial.begin(115200);
-  pinMode(MQ135_PIN, INPUT);
-  
-  Serial.println("Air Quality Monitoring System Starting...");
-  Serial.println("Waiting 2 minutes for MQ-135 sensor to warm up.");
-  
-  // Connect to Wi-Fi
-  WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("\nWiFi Connected!");
-  Serial.print("IP Address: ");
-  Serial.println(WiFi.localIP());
+## 🧪 Simulation & Testing
 
-  ThingSpeak.begin(client);
-}
+The system logic was tested on a physical ESP32 with MQ-135 sensor.  
+Serial monitor output and ThingSpeak dashboard were used to verify data transmission and alert accuracy.
 
-void loop() {
-  // Read sensor (raw ADC value)
-  int sensorValue = analogRead(MQ135_PIN);
-  Serial.print("Air Quality (Raw ADC): ");
-  Serial.println(sensorValue);
+## 🎥 Demo Video / Screenshot
 
-  // Threshold check
-  if (sensorValue > SENSOR_THRESHOLD) {
-    Serial.println("⚠️ Poor Air Quality Detected!");
-  } else {
-    Serial.println("✅ Air Quality is Good.");
-  }
+*Add your ThingSpeak dashboard screenshot or serial monitor output here*
 
-  // Send to ThingSpeak every 15 seconds
-  if (millis() - lastThingSpeakUpdate > 15000) {
-    lastThingSpeakUpdate = millis();
+## 🚀 Future Enhancements
 
-    if (WiFi.status() == WL_CONNECTED) {
-      ThingSpeak.setField(1, sensorValue);
-      int response = ThingSpeak.writeFields(channelID, writeAPKey);
-      if (response == 200) {
-        Serial.println("📡 ThingSpeak Updated Successfully");
-      } else {
-        Serial.print("❌ ThingSpeak update failed, code: ");
-        Serial.println(response);
-      }
-    } else {
-      Serial.println("WiFi not connected, cannot update ThingSpeak");
-    }
-  }
-  
-  delay(1000); // Small delay before next reading
-}
+- Add a local LCD display for instant readings
+- Integrate Blynk or Telegram for push notifications
+- Convert raw ADC to PPM using calibration formulas
+- Add multiple sensors (PM2.5, CO, etc.)
+- Implement solar power for remote deployment
+- Use MQTT instead of HTTP for faster updates
+
+## 🏅 Innovation Statement
+
+> “Unlike conventional air quality monitors that only display local readings, our solution provides real-time cloud-based tracking, threshold-based alerts, and historical data logging—making air pollution monitoring intelligent, remote, and data-driven.”
+
+## 👩‍💻 Author
+
+- **Gouri Ajith** (MGP24EVLSI014)  
+- **Lakshmipriya K G** (MGP24EVLSI017)  
+
+**Course:** Semester 3, Electronics Engineering (VLSI Design and Technology)  
+**Institution:** Saintgits College of Engineering
+
+## 📜 License
+
+This project is open-source under the MIT License.
