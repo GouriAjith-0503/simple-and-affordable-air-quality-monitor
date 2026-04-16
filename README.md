@@ -7,7 +7,7 @@
 
 This project implements a **real-time air quality monitoring system** using an ESP32 DevKit V1 and an MQ-135 gas sensor. It reads the concentration of harmful gases (CO₂, NH₃, benzene, smoke, NOₓ) and sends the raw ADC value to **ThingSpeak** cloud platform. The system also provides a local threshold alert on the Serial Monitor.
 
-> **Note:** The current version uses raw ADC values (0–4095). For accurate PPM readings, calibration with the MQ-135 datasheet is required.
+> **Note:** The current version uses raw ADC values (0–4095).
 
 ---
 
